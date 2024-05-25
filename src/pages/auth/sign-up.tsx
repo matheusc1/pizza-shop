@@ -1,3 +1,4 @@
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
@@ -26,28 +27,30 @@ export function SignUp() {
     register,
     handleSubmit,
     formState: { isSubmitting },
-  } = useForm<SignUpForm>()
+  } = useForm<SignUpForm>({
+    resolver: zodResolver(signUpForm),
+  })
 
   const { mutateAsync: registerRestaurantFn } = useMutation({
     mutationFn: registerRestaurant,
   })
 
-  async function handleSignUp(data: SignUpForm) {
+  async function handleRegisterRestaurant({
+    restaurantName,
+    managerName,
+    email,
+    phone,
+  }: SignUpForm) {
     try {
-      registerRestaurantFn({
-        restaurantName: data.restaurantName,
-        managerName: data.managerName,
-        email: data.email,
-        phone: data.phone,
-      })
+      await registerRestaurantFn({ restaurantName, managerName, email, phone })
 
-      toast.success('Restaurante cadastrado com sucesso!.', {
+      toast.success('Restaurante cadastrado com sucesso!', {
         action: {
           label: 'Login',
-          onClick: () => navigate(`/sign-in?email=${data.email}`),
+          onClick: () => navigate(`/sign-in?email=${email}`),
         },
       })
-    } catch (error) {
+    } catch (err) {
       toast.error('Erro ao cadastrar restaurante.')
     }
   }
@@ -70,7 +73,10 @@ export function SignUp() {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit(handleSignUp)} className="space-y-4">
+          <form
+            onSubmit={handleSubmit(handleRegisterRestaurant)}
+            className="space-y-4"
+          >
             <div className="space-y-2">
               <Label htmlFor="restaurantName">Nome do estabelecimento</Label>
               <Input

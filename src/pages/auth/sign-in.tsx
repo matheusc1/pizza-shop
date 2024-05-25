@@ -47,7 +47,7 @@ export function SignIn() {
           onClick: () => handleSignIn(data),
         },
       })
-    } catch {
+    } catch (err) {
       toast.error('Credenciais inválidas.')
     }
   }

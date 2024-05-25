@@ -100,7 +100,7 @@ export function StoreProfileDialog() {
       await updateProfileFn({ name: data.name, description: data.description })
 
       toast.success('Perfil atualizado com sucesso!')
-    } catch {
+    } catch (err) {
       toast.error('Falha ao atualizar o perfil, tente novamente!')
     }
   }
