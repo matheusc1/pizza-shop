@@ -34,7 +34,7 @@
     "react-helmet-async": "^2.0.5",
     "react-hook-form": "^7.51.5",
     "react-router-dom": "^6.23.1",
-    "recharts": "^2.12.7",
+    "recharts": "^2.13.0-alpha.1",
     "sonner": "^1.4.41",
     "sort-by": "^1.2.0",
     "tailwind-merge": "^2.3.0",
@@ -42,6 +42,7 @@
     "zod": "^3.23.8"
   },
   "devDependencies": {
+    "@playwright/test": "^1.44.1",
     "@rocketseat/eslint-config": "^2.2.2",
     "@testing-library/jest-dom": "^6.4.5",
     "@testing-library/react": "^15.0.7",
